@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # my apps
-    'todo',
-    'frontend',
+    'RestAPI',
+    'Frontend',
 
     # third apps
     'rest_framework',
@@ -55,14 +55,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-ALLOWED_HOSTS = ["0.0.0.0", "192.168.0.109"]
-
-CORS_ORIGIN_ALLOW_ALL = True
-
-# CORS_ORIGIN_WHITELIST = (
-#     'http://192.168.0.109',
-# )
 
 ROOT_URLCONF = 'todoManager.urls'
 
@@ -120,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
@@ -133,3 +125,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CORS_ORIGIN_WHITELIST = (
+    "http://127.0.0.1:3000",
+    "http://0.0.0.0:3000"
+)
+
+ALLOWED_HOSTS = ["0.0.0.0", "192.168.0.109"]
+
+CORS_ALLOW_CREDENTIALS = True

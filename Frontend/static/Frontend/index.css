@@ -7,7 +7,7 @@ body {
     color: white;
 }
 
-#todo-main {
+#root {
     text-align: center;
 }
 
@@ -19,6 +19,10 @@ body {
 #todo-page h1 {
     font-size: 36px;
     margin-bottom: 1em;
+}
+
+.container * {
+    display: block;
 }
 
 #title {
@@ -48,93 +52,57 @@ body {
     color: white;
     font-size: 18px;
     padding: .5em;
-
+    height: 15vh;
+    width: 90vw;
 }
 
 #description:focus {
     border-color: #2ecc71;
 }
 
-
-.control {
-    display: block;
-    position: relative;
-    padding-left: 30px;
-    margin: 10px auto;
+.select div {
+    display: inline-block;
+    width: 2.5em;
+    height: 2.5em;
+    margin: 2em .5em 1em .5em;
+    border-radius: 50%;
+    line-height: 2.5em;
+    background-color: #494961;
     cursor: pointer;
-    font-size: 18px;
+    border-style: solid;
+    border-width: medium;
+    border-color: teal;
 }
 
-.control input {
-    position: absolute;
-    z-index: -1;
-    opacity: 0;
+.select .div-selected {
+    border-color: #b21f29;
 }
 
-.control__indicator {
-    position: absolute;
-    top: 2px;
-    left: 100px;
-    height: 20px;
+.completed * {
+    display: inline;
+    font-size: 24px;
+}
+
+#completed {
+    position: relative;
+    top: 3px;
+    margin-left: 5px;
     width: 20px;
-    background: #e6e6e6;
-}
-
-.control:hover input ~ .control__indicator,
-.control input:focus ~ .control__indicator {
-    background: #ccc;
-}
-
-.control input:checked ~ .control__indicator {
-    background: #2aa1c0;
-}
-
-.control:hover input:not([disabled]):checked ~ .control__indicator,
-.control input:checked:focus ~ .control__indicator {
-    background: #0e647d;
-}
-
-.control input:disabled ~ .control__indicator {
-    background: #e6e6e6;
-    opacity: 0.6;
-    pointer-events: none;
-}
-
-.control__indicator:after {
-    content: '';
-    position: absolute;
-    display: none;
-}
-
-.control input:checked ~ .control__indicator:after {
-    display: block;
-}
-
-.control--checkbox .control__indicator:after {
-    left: 8px;
-    top: 4px;
-    width: 3px;
-    height: 8px;
-    border: solid #fff;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-}
-
-.control--checkbox input:disabled ~ .control__indicator:after {
-    border-color: #7b7b7b;
+    height: 20px;
+    margin-bottom: 1em;
 }
 
 #create-btn {
     background-color: #4CAF50;
+    width: 120px;
     border: none;
-    /* border-radius: 30px; */
     color: white;
     padding: 10px 20px;
     margin: .5em;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 20px;
     cursor: pointer;
 }
 
@@ -142,23 +110,23 @@ body {
     position: absolute;
     right: 20px;
     bottom: 35px;
-    background-color: rgba(238, 238, 238, 0.247);
-    width: 60px;
-    height: 60px;
+    background-color: #494961;
+    width: 3em;
+    height: 3em;
+    line-height: 3em;
     text-align: center;
     cursor: pointer;
     border-radius: 50%;
-
-}
-
-#listTodo-btn span {
-    position: relative;
-    color: white;
-    top: 20px;
-
+    border-style: solid;
+    border-width: medium;
+    border-color: teal;
 }
 
 /* Todo list */
+#div-btn {
+    background-color: rgba(107, 255, 112, 0.288);
+}
+
 #ul-todo {
     list-style: none;
     margin: 0;
@@ -166,10 +134,30 @@ body {
 }
 
 #ul-todo li:first-child {
-    background-color: rgba(107, 255, 112, 0.288);
+    margin-top: 1em;
+    margin-bottom: .5em;
+    font-size: 17px;
 }
 
-#ul-todo button {
+#ul-todo li {
+    display: grid;
+    grid-template-columns: 1fr 11fr 3fr;
+    grid-auto-rows: auto;
+    align-items: center;
+}
+
+#ul-todo li div h3 {
+    text-align: initial;
+    margin: 0;
+    margin-left: 10px;
+}
+
+#ul-todo li span {
+    background-color: #211f57;
+    padding: 1em;
+}
+
+#todo-list div button {
     background-color: #4CAF50; /* Green */
     border: none;
     /* border-radius: 30px; */

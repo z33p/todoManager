@@ -6,7 +6,7 @@ from .models import Todo
 # Todo viewset
 class TodoViewSet(viewsets.ModelViewSet):
     queryset = Todo.objects.all()
-    permission_classes = [
-        permissions.AllowAny
-    ]
+    # permission_classes = [
+    #     permissions.AllowAny
+    # ]
     serializer_class = TodoSerializer

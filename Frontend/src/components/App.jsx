@@ -4,22 +4,6 @@ import ReactDom from 'react-dom';
 import ListTodo from './ListTodo.jsx';
 
 
-export function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-
 class App extends Component {
     constructor(props) {
         super(props);
@@ -27,7 +11,7 @@ class App extends Component {
             title: "",
             description: "",
             priority: 1,
-            completed: false,
+            completed: false
         }
 
         this.onChange = this.onChange.bind(this);
@@ -38,20 +22,19 @@ class App extends Component {
     }
 
     createTodo() {
-        const csrftoken = getCookie('csrftoken');
-        const headers = {
-            'Content-type': 'application/json; charset=utf-8',
-            "X-CSRFToken": csrftoken
-        }
         axios
             .post('/api/todo/', this.state, {
                 headers: {
                     'Content-type': 'application/json; charset=utf-8',
-                    "X-CSRFToken": csrftoken
+                    "X-CSRFToken": getCookie('csrftoken')
                 }
             })
             .then(response => {
-                console.table(response);
+                this.setState({
+                    title: "",
+                    description: "",
+                    completed: false
+                })
             })
             .catch(err => {
                 console.log(err);
@@ -59,7 +42,7 @@ class App extends Component {
     }
 
     changeToList() {
-        ReactDom.render(<ListTodo />, document.getElementById('root'));
+        ReactDom.render(<ListTodo csrftoken={ this.state.csrftoken }/>, document.getElementById('root'));
     }
 
     onChange(event) {
@@ -139,6 +122,22 @@ class App extends Component {
             </div>
         );
     }
+}
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }
 
 export default App;

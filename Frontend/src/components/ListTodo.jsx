@@ -14,12 +14,39 @@ class ListTodo extends Component {
         this.changeApp = this.changeApp.bind(this);
         this.getTodo_s = this.getTodo_s.bind(this);
         this.yieldLi = this.yieldLi.bind(this);
+        this.deleteTodo = this.deleteTodo.bind(this);
 
         this.getTodo_s();
     }
 
     changeApp() {
         ReactDom.render(<App />, document.getElementById('root'));
+    }
+
+    deleteTodo(e) {
+        /* Get the id by acessing the parent element and fetch the second child
+           wich contains the id */
+        let id = e.target.parentElement.children[1].children[0].innerHTML
+    
+        axios
+            .delete(`/api/todo/${id}`, {
+                headers: {
+                    'Content-type': 'application/json; charset=utf-8',
+                    "X-CSRFToken": getCookie('csrftoken')
+                }
+            })
+            .then(res => {
+                // console.table(res);
+                
+                // Can be optimzate: for instance update state without a new copy variable
+                let copy = this.state.todo_s.slice();
+                let i = copy.findIndex(todo => (todo.id == id))
+                copy.splice(i, 1);
+                this.setState({ todo_s: copy });
+            })
+            .catch(err => console.log(err))
+        
+       
     }
 
     yieldLi() {
@@ -58,12 +85,22 @@ class ListTodo extends Component {
             let { id, title, description, priority } = todo;
             arr.push(
                 <li key = { id }>
-                    <span>{ id }</span>
                     <div>
                         <h3>{ title }</h3>
-                        <small>{ description.slice(0, 30) + "..." }</small>
+                        <small>
+                        { description.length >= 30 ? description.slice(0, 30) + " &&" : description.length === 0 ? "..." : description }
+                        </small>
                     </div>
+                    <span><small>{ id }</small></span>
                     <span>{ priority }</span>
+                    <button onClick={ this.deleteTodo }>
+                        <svg height="20" width="20">
+                            <line x1="2" y1="0" x2="20" y2="20"
+                            style={{ stroke: "#ff0000", strokeWidth: 3 }} />
+                            <line x1="18" y1="0" x2="2" y2="20"
+                            style={{ stroke: "#ff0000", strokeWidth: 3 }} />
+                        </svg>
+                    </button>
                 </li>
             )
         });
@@ -91,9 +128,10 @@ class ListTodo extends Component {
 
                 <ul id="ul-todo">
                     <li>
-                        <div>ID</div>
                         <div>Content</div>
+                        <div>ID</div>
                         <div>Priority</div>
+                        <div>Del</div>
                     </li>
 
                     { this.yieldLi() }
@@ -102,6 +140,22 @@ class ListTodo extends Component {
             </div>
         );
     }
+}
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }
 
 export default ListTodo;

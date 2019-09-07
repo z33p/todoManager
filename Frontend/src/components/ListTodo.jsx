@@ -26,7 +26,7 @@ class ListTodo extends Component {
     deleteTodo(e) {
         /* Get the id by acessing the parent element and fetch the second child
            wich contains the id */
-        let id = e.target.parentElement.children[1].children[0].innerHTML
+        let id = e.target.parentElement.children[1].innerHTML
     
         axios
             .delete(`/api/todo/${id}`, {
@@ -84,17 +84,17 @@ class ListTodo extends Component {
         this.state.todo_s.forEach(todo => {
             let { id, title, description, priority } = todo;
             arr.push(
-                <li key = { id }>
-                    <div>
-                        <h3>{ title }</h3>
-                        <small>
+                <li className="Grid-fix text-center" key = { id }>
+                    <div className="text-left">
+                        <h3 className="ml-4 text-lg">{ title }</h3>
+                        <small className="ml-8">
                         { description.length >= 30 ? description.slice(0, 30) + " &&" : description.length === 0 ? "..." : description }
                         </small>
                     </div>
-                    <span><small>{ id }</small></span>
+                    <span>{ id }</span>
                     <span>{ priority }</span>
                     <button onClick={ this.deleteTodo }>
-                        <svg height="20" width="20">
+                        <svg className="inline" height="20" width="20">
                             <line x1="2" y1="0" x2="20" y2="20"
                             style={{ stroke: "#ff0000", strokeWidth: 3 }} />
                             <line x1="18" y1="0" x2="2" y2="20"
@@ -119,15 +119,15 @@ class ListTodo extends Component {
 
     render() {
         return (
-            <div id="todo-list">
-                <h1>List Todo</h1>
+            <div className="ListTodo text-center">
+                <h1 className="p-6 mt-4 text-4xl font-black">List Todo</h1>
 
-                <div id="div-btn">
-                    <button onClick={this.changeApp}>New Todo</button>
+                <div className="block bg-green-light p-2">
+                    <button className="text-center text-base p-2 bg-green" onClick={this.changeApp}>New Todo</button>
                 </div>
 
-                <ul id="ul-todo">
-                    <li>
+                <ul className="mt-4">
+                    <li className="Grid text-lg">
                         <div>Content</div>
                         <div>ID</div>
                         <div>Priority</div>

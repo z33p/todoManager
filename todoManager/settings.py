@@ -25,7 +25,6 @@ SECRET_KEY = 'rmvpy2yd4sk%z=+dt2##brwn@on%9&(e)&j6n7@-^^-zm2o!q6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -126,11 +125,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "192.168.0.109"]
+
 CORS_ORIGIN_WHITELIST = (
-    "http://127.0.0.1:3000",
-    "http://0.0.0.0:3000"
+    "http://" + ALLOWED_HOSTS[0] + ":3000",
+    "http://" + ALLOWED_HOSTS[1] + ":3000",
+    "http://" + ALLOWED_HOSTS[2] + ":3000",
+    
 )
 
-ALLOWED_HOSTS = ["0.0.0.0", "192.168.0.109"]
 
 CORS_ALLOW_CREDENTIALS = True

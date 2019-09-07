@@ -1,0 +1,46 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+body {
+    background-color: #131232;
+    color: white;
+}
+
+.bg-black-blue {
+    background-color: #080816;
+}
+
+.bg-black-gray {
+    background-color: #494961;
+}
+
+.bg-green {background-color: #4CAF50;}
+
+.bg-green-light {background-color: #2c5644;}
+
+.top-3 {
+    top: 3px;
+}
+
+.Rounded-btn {
+    width: 3em;
+    height: 3em;
+    border-radius: 50%;
+    line-height: 2.8em;
+}
+
+.Grid {
+    display: grid;
+    grid-template-columns: 10fr 2fr 2fr 2fr;
+    align-items: center;
+}
+
+.Grid-fix {
+    display: grid;
+    grid-template-columns: 9fr 2fr 2fr 2fr;
+    align-items: center;
+}
+
